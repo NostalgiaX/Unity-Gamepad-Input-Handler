@@ -1,27 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 public class InputHandlerMenu : EditorWindow
 {
     static EditorWindow window;
-
+    static int NumberOfGamepadssToAdd = 10;
     [MenuItem("Input Handler/Setup Input Manager")]
     public static void SetupInputManager()
     {
         window = GetWindow<InputHandlerMenu>("Confirmation");
+        window.maxSize = new Vector2(600, 200);
+        window.minSize = new Vector2(600, 200);
     }
 
 
     private void OnGUI()
     {
-        GUILayout.Label("This will populate the Input Manager with around 200 entries, do you wish to continue?");
+        GUI.skin.label.wordWrap = true;
+        GUILayout.Label("This will populate the Input Manager with 20 entries per gamepad supported, do you wish to continue?");
         GUILayout.Space(10);
 
         bool Recov = true;
         Recov = GUILayout.Toggle(Recov, "Create backup of old InputManager before making new?");
+        GUILayout.Space(10);
+
+        GUILayout.Label("How many gamepads do you want to support? Note that if you have more gamepads connected, than you support, you may run into issues, so recommended would be around 10 or so.");
+        NumberOfGamepadssToAdd = EditorGUILayout.IntSlider(NumberOfGamepadssToAdd, 1, 16);
         if (GUILayout.Button("Yes"))
         {
             if (Recov)
@@ -56,7 +64,36 @@ public class InputHandlerMenu : EditorWindow
 
     private void FillManagerWithJoysticks()
     {
-        File.AppendAllText("ProjectSettings/InputManager.asset", InputManagerEntries.Entries);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= NumberOfGamepadssToAdd; i++)
+        {
+            sb.Append("\n");
+            for (int x = 0; x < 20; x++)
+            {
+                sb.Append(string.Format(
+                    @"  - serializedVersion: 3
+    m_Name: joystick {0} analog {1}
+    descriptiveName:
+    descriptiveNegativeName: 
+    negativeButton:
+    positiveButton: 
+    altNegativeButton:
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: {1}
+    joyNum: {0} ", i, x));
+                sb.Append("\n");
+            }
+        }
+
+        File.AppendAllText("ProjectSettings/InputManager.asset", sb.ToString());
+
+        AssetDatabase.Refresh();
     }
 
     [MenuItem("Input Handler/Setup Scene")]
