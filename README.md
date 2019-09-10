@@ -43,6 +43,8 @@ At this point I have only run testing with up to 4 players, without seeing any p
 
 This code is tested with Unity 2017.4.27 and 2019.2.1, but I would assume that it will work with basically any version. Will update this after more testing at some point.
 
+Note I am unable to provide much help with controllers I do not own myself, so if bugs occur, the help may be limited.
+
 # Future additions
 Since this was made to work in my own games, I usually only add something, when I need it for the system. There is, however, a few things that I want to add in the future
 - Some tool to remap buttons.
