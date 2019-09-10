@@ -35,9 +35,12 @@ Since gamepad manufacturers don't have a standardized way to make gamepads, comp
 This system is made so it's fairly simple to modify. Adding new gamepads when new comes out, should also be as easy as copying one of the existing classes, and changing the buttons. I've mapped all the gamepads I have access to (and Xbox One X gamepad from what I could see on the internet), as well as shown how to make the keyboard seem like a gamepad, so you don't have to handle that edge case. The keyboard controls are mapped to some random things, so you might want to change that, so it fits to your game. It should be easy enough though! Just go into the KeyboardMapping.cs class and change the different Gamepad keys to whatever key on your keyboard you would like. 
 
 # Restrictions
+
+For the SwitchPro controller, I was only able to get input, if it was connected via Bluetooth, even though Unity registered it, when plugged in by cable.
+
 Since I use some file copying for the Input manager setup, I highly doubt this works on Apple products, apologies.
 
-At this moment, only 10 gamepads are supported, but theoretically, assuming Unity doesn't block it at some point, it should be doable to add more entries in the Input Manager.
+At this moment, only up to 16 gamepads are supported, since it's the limit that Unity supports in the InputManager. Be aware, that every gamepad connected to your PC (and whatever Unity detects as a controller), is taking up a slot, so when setting everything up, I would recommend to just add as many as possible.
 
 At this point I have only run testing with up to 4 players, without seeing any performance degredation, but will update this, when I test with more.
 
