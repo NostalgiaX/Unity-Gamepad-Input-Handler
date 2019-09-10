@@ -1,4 +1,4 @@
-# Unity-Gamepad-Input-Handler
+# Unity Gamepad InputHandler
 Cross gamepad support for the Unity Engine
 
 Just a small project, trying to make use of Unity only, to create a way to support multiple gamepads in the same game, regardless of their type.
